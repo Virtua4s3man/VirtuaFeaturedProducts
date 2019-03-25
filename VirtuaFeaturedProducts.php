@@ -20,4 +20,35 @@ class VirtuaFeaturedProducts extends Plugin
         $container->setParameter('virtua_featured_products.plugin_dir', $this->getPath());
         parent::build($container);
     }
+
+    public function install(InstallContext $context)
+    {
+        $crudService = $this->container->get('shopware_attribute.crud_service');
+        $crudService->update(
+            's_articles_attributes',
+            'is_featured',
+            'boolean',
+            [
+                'displayInBackend' => true,
+                'label' => 'is Featured',
+            ],
+            null,
+            false,
+            false
+        );
+    }
+
+    public function uninstall(UninstallContext $context)
+    {
+        if ($context->keepUserData()) {
+            return;
+        }
+
+        $crudService = $this->container->get('shopware_attribute.crud_service');
+        $crudService->delete(
+            's_articles_attributes',
+            'is_featured'
+        );
+    }
+
 }
