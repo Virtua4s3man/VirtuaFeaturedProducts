@@ -10,5 +10,11 @@
             <argument type="string">VirtuaFeaturedProducts</argument>
         </service>
 
+        <service class="VirtuaFeaturedProducts\Subscribers\FrontendRoutingSubscriber" id="virtua_featured_products.subscribers.frontend_routing_subscriber">
+            <argument type="service" id="VirtuaFeaturedProducts.config"/>
+            <tag name="shopware.event_subscriber" />
+        </service>
+
+
     </services>
 </container>
